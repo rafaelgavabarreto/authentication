@@ -19,6 +19,7 @@ import java.util.UUID;
 @EqualsAndHashCode
 @NoArgsConstructor
 @Entity
+@Table(name="users")
 public class User implements UserDetails {
 
     @Id
