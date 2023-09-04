@@ -1,22 +1,22 @@
 package com.example.authentication.user;
 
 import jakarta.persistence.*;
-import lombok.EqualsAndHashCode;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
+import org.springframework.data.annotation.CreatedDate;
+import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
+import java.time.Instant;
 import java.time.LocalDateTime;
 import java.util.Collection;
-import java.util.Collections;
+import java.util.List;
 import java.util.UUID;
 
-@Getter
-@Setter
-@EqualsAndHashCode
+@Data
+@Builder
+@AllArgsConstructor
 @NoArgsConstructor
 @Entity
 @Table(name="users")
@@ -31,18 +31,23 @@ public class User implements UserDetails {
     private String password;
     @Enumerated(EnumType.STRING)
     private UserRole userRole;
-    private Boolean isEnabled;
-    private Boolean isConfirmed;
+    private Boolean isEnabled = true;
+    private Boolean isConfirmed = false;
     private LocalDateTime timestamp;
+    @CreatedDate
+    private Instant createdAt;
+    @LastModifiedDate
+    private Instant updatedAt;
 
-    public User(String firstName,
-                String lastName,
-                String email,
-                String password,
-                UserRole userRole,
-                Boolean isEnabled,
-                Boolean isConfirmed,
-                LocalDateTime timestamp) {
+    public User(
+            String firstName,
+            String lastName,
+            String email,
+            String password,
+            UserRole userRole,
+            Boolean isEnabled,
+            Boolean isConfirmed
+    ) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;
@@ -50,13 +55,11 @@ public class User implements UserDetails {
         this.userRole = userRole;
         this.isEnabled = isEnabled;
         this.isConfirmed = isConfirmed;
-        this.timestamp = timestamp;
     }
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        SimpleGrantedAuthority authority = new SimpleGrantedAuthority(userRole.name());
-        return Collections.singletonList(authority);
+        return List.of(new SimpleGrantedAuthority(userRole.name()));
     }
 
     @Override
