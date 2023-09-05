@@ -1,4 +1,12 @@
 package com.example.authentication.user;
 
-public record UserDTO(UserRole userRole, String firstName, String lastName, String email, String password) {
+import java.util.UUID;
+
+public record UserDTO(
+        UUID id,
+        String firstName,
+        String lastName,
+        String email,
+        UserRole userRole
+        ) {
 }

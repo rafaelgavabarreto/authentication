@@ -12,6 +12,7 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
+import java.util.stream.Collectors;
 
 @Service
 @AllArgsConstructor
@@ -20,13 +21,14 @@ public class UserService implements UserDetailsService {
     private static final String USER_NOT_FOUND_MESSAGE = "User with email %s not found";
     private final UserRepository userRepository;
     private final PasswordEncoder passwordEncoder;
+    private final UserDTOMapper userDTOMapper;
 
-    public Optional<User> getUserById(UUID id) {
-        return this.userRepository.findById(id);
+    public Optional<UserDTO> getUserById(UUID id) {
+        return this.userRepository.findById(id).map(userDTOMapper);
     }
 
-    public List<User> getAllUsers() {
-        return this.userRepository.findAll();
+    public List<UserDTO> getAllUsers() {
+        return this.userRepository.findAll().stream().map(userDTOMapper).collect(Collectors.toList());
     }
 
     @Override

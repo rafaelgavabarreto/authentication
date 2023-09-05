@@ -18,12 +18,12 @@ public class UserController {
     private final UserService userService;
 
     @GetMapping("{id}")
-    public ResponseEntity<Optional<User>> getUserById (@PathVariable UUID id) {
+    public ResponseEntity<Optional<UserDTO>> getUserById (@PathVariable UUID id) {
         return ResponseEntity.ok(userService.getUserById(id));
     }
 
     @GetMapping
-    public ResponseEntity<List<User>> getAllUsers () {
+    public ResponseEntity<List<UserDTO>> getAllUsers () {
         return ResponseEntity.ok(userService.getAllUsers());
     }
 
