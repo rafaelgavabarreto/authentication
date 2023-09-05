@@ -8,7 +8,6 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
-import java.time.Instant;
 import java.time.LocalDateTime;
 import java.util.Collection;
 import java.util.List;
@@ -33,29 +32,28 @@ public class User implements UserDetails {
     private UserRole userRole;
     private Boolean isEnabled = true;
     private Boolean isConfirmed = false;
-    private LocalDateTime timestamp;
     @CreatedDate
-    private Instant createdAt;
+    private LocalDateTime createdAt;
     @LastModifiedDate
-    private Instant updatedAt;
+    private LocalDateTime updatedAt;
 
-    public User(
-            String firstName,
-            String lastName,
-            String email,
-            String password,
-            UserRole userRole,
-            Boolean isEnabled,
-            Boolean isConfirmed
-    ) {
-        this.firstName = firstName;
-        this.lastName = lastName;
-        this.email = email;
-        this.password = password;
-        this.userRole = userRole;
-        this.isEnabled = isEnabled;
-        this.isConfirmed = isConfirmed;
-    }
+//    public User(
+//            String firstName,
+//            String lastName,
+//            String email,
+//            String password,
+//            UserRole userRole,
+//            Boolean isEnabled,
+//            Boolean isConfirmed
+//    ) {
+//        this.firstName = firstName;
+//        this.lastName = lastName;
+//        this.email = email;
+//        this.password = password;
+//        this.userRole = userRole;
+//        this.isEnabled = isEnabled;
+//        this.isConfirmed = isConfirmed;
+//    }
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
@@ -89,6 +87,7 @@ public class User implements UserDetails {
 
     @Override
     public boolean isEnabled() {
-        return isEnabled;
+        return true;
     }
+
 }
