@@ -15,7 +15,8 @@ public interface UserRepository extends JpaRepository<User, UUID> {
 
     Optional<User> findById(UUID id);
 
-    Optional<User> updateById(UUID id, RegisterRequest user);
+//    Optional<User> updateById(UUID id, RegisterRequest user);
 
     void deleteById(UUID id);
+
 }

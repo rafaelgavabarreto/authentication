@@ -24,16 +24,32 @@ public class User implements UserDetails {
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
     private UUID id;
+
+    @Column(nullable = false)
     private String firstName;
+
+    @Column(nullable = false)
     private String lastName;
+
+    @Column(nullable = false)
     private String email;
+
+    @Column(nullable = false)
     private String password;
+
+    @Column(nullable = false)
     @Enumerated(EnumType.STRING)
     private UserRole userRole;
+
+    @Column(nullable = false)
     private Boolean isEnabled = true;
+
+    @Column(nullable = false)
     private Boolean isConfirmed = false;
+
     @CreatedDate
     private LocalDateTime createdAt;
+
     @LastModifiedDate
     private LocalDateTime updatedAt;
 
