@@ -27,10 +27,10 @@ public class UserController {
         return ResponseEntity.ok(userService.getAllUsers());
     }
 
-//    @PatchMapping("{id}")
-//    public ResponseEntity<Optional<User>> updateUserById (@PathVariable UUID id, @RequestBody RegisterRequest request) {
-//        return ResponseEntity.ok(userService.updateById(id, request));
-//    }
+    @PatchMapping("{id}")
+    public ResponseEntity<Optional<User>> updateUserById (@PathVariable UUID id, @RequestBody RegisterRequest request) {
+        return ResponseEntity.ok(Optional.ofNullable(userService.updateById(id, request)));
+    }
 
     @DeleteMapping("{id}")
     public ResponseEntity<Boolean> deleteUserById (@PathVariable UUID id) {

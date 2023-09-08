@@ -1,5 +1,6 @@
 package com.example.authentication.user;
 
+import com.example.authentication.auth.RegisterRequest;
 import lombok.AllArgsConstructor;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -34,13 +35,18 @@ public class UserService implements UserDetailsService {
         return userRepository.findByEmail(email).orElseThrow(() -> new UsernameNotFoundException(String.format(USER_NOT_FOUND_MESSAGE, email)));
     }
 
-//    public Optional<User> updateById(UUID id, RegisterRequest request) {
-//        userRepository.findById(id).orElseThrow();
-//        if (!request.getPassword().isEmpty()) {
-//            request.setPassword(passwordEncoder.encode(request.getPassword()));
-//        }
-//        return userRepository.updateById(id, request);
-//    }
+    public User updateById(UUID id, RegisterRequest request) {
+        Optional<User> optionalUser = Optional.ofNullable(userRepository.findById(id).orElseThrow());
+        User user = optionalUser.get();
+        user.builder()
+                .firstName(request.getFirstName())
+                .lastName(request.getLastName())
+                .email(request.getEmail())
+                .password(passwordEncoder.encode(request.getPassword()))
+                .userRole(UserRole.USER)
+                .build();
+        return userRepository.save(user);
+    }
 
     public Boolean deleteById(UUID id) {
         userRepository.deleteById(id);

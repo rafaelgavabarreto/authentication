@@ -53,24 +53,6 @@ public class User implements UserDetails {
     @LastModifiedDate
     private LocalDateTime updatedAt;
 
-//    public User(
-//            String firstName,
-//            String lastName,
-//            String email,
-//            String password,
-//            UserRole userRole,
-//            Boolean isEnabled,
-//            Boolean isConfirmed
-//    ) {
-//        this.firstName = firstName;
-//        this.lastName = lastName;
-//        this.email = email;
-//        this.password = password;
-//        this.userRole = userRole;
-//        this.isEnabled = isEnabled;
-//        this.isConfirmed = isConfirmed;
-//    }
-
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         return List.of(new SimpleGrantedAuthority(userRole.name()));
